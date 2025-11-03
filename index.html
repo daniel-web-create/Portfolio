@@ -1,37 +1,44 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrei Popa - Dezvoltator Shopify & Expert E-commerce</title>
-
+    <title>Mihalyi Daniel - Freelance Web Developer</title>
+    
+    <!-- Google Fonts: Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* * ========================================
-         * 1. VARIABILE ȘI CONFIGURARE GLOBALĂ
-         * ========================================
-        */
+        /* ========================================
+         * 1. CSS VARIABLES & THEME
+         * ======================================== */
         :root {
-            --bg-main: #111111;
-            --bg-secondary: #1f1f1f;
-            --text-main: #FFFFFF;
-            --text-secondary: #AAAAAA;
-            --accent: #00FF99;
-            --accent-hover: #00e68a;
-
+            --color-bg: #111111;
+            --color-bg-soft: #1a1a1a; /* For cards/secondary bg */
+            --color-bg-blur: rgba(17, 17, 17, 0.85); /* For sticky nav */
+            
+            --color-text-primary: #FFFFFF;
+            --color-text-secondary: #AAAAAA;
+            
+            --color-accent-green: #00FF99;
+            --color-accent-green-hover: #00e68a;
+            --color-accent-orange: #FFA500; /* Warm orange */
+            --color-accent-orange-hover: #ff4500;
+            
             --font-primary: 'Poppins', sans-serif;
-            --container-width: 1100px;
-            --border-radius: 8px;
+            
+            --container-width: 1140px;
+            --border-radius: 10px;
             --transition: all 0.3s ease-in-out;
+            --shadow-light: 0 4px 20px rgba(0, 255, 153, 0.1);
+            --shadow-dark: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* * ========================================
-         * 2. RESETARE ȘI STILURI DE BAZĂ
-         * ========================================
-        */
+        /* ========================================
+         * 2. GLOBAL RESET & BASE STYLES
+         * ======================================== */
         * {
             margin: 0;
             padding: 0;
@@ -44,57 +51,54 @@
 
         body {
             font-family: var(--font-primary);
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--color-bg);
+            /* Subtle gradient to avoid "flat black" */
+            background-image: radial-gradient(ellipse at top, var(--color-bg-soft) 0%, var(--color-bg) 70%);
+            color: var(--color-text-primary);
             line-height: 1.7;
             font-weight: 300;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         .container {
             max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 2rem;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
         }
 
         section {
             padding: 6rem 0;
+            overflow: hidden; /* For animations */
+        }
+        
+        section:first-of-type {
+            padding-top: 10rem; /* Offset for hero */
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4, h5, h6 {
             font-weight: 600;
-            line-height: 1.2;
+            line-height: 1.3;
             margin-bottom: 1rem;
         }
 
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        h3 {
-            font-size: 1.25rem;
-        }
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); text-align: center; margin-bottom: 3rem; }
+        h3 { font-size: 1.5rem; }
 
         p {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+            max-width: 65ch; /* Improve readability */
         }
 
         a {
+            color: var(--color-accent-green);
             text-decoration: none;
-            color: var(--accent);
             transition: var(--transition);
         }
-
-        a:hover {
-            color: var(--accent-hover);
-        }
+        a:hover { color: var(--color-accent-green-hover); }
 
         img {
             max-width: 100%;
@@ -102,321 +106,555 @@
             display: block;
         }
 
-        /* * ========================================
-         * 3. BUTONUL CTA (CALL TO ACTION)
-         * ========================================
-        */
+        /* ========================================
+         * 3. UTILITY & BUTTONS
+         * ======================================== */
         .btn {
             display: inline-block;
-            background-color: var(--accent);
-            color: var(--bg-main);
-            padding: 12px 28px;
-            font-size: 1rem;
+            font-family: var(--font-primary);
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            padding: 0.75rem 1.75rem;
             border: none;
             border-radius: var(--border-radius);
             cursor: pointer;
             transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            text-align: center;
         }
 
-        .btn:hover {
-            background-color: var(--accent-hover);
-            color: var(--bg-main);
+        .btn-primary {
+            background-color: var(--color-accent-green);
+            color: #111;
+        }
+        .btn-primary:hover {
+            background-color: var(--color-accent-green-hover);
+            color: #111;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 153, 0.1);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--color-accent-green);
+            color: var(--color-accent-green);
+        }
+        .btn-secondary:hover {
+            /* The warm orange gradient on hover! */
+            background: linear-gradient(45deg, var(--color-accent-orange), var(--color-accent-orange-hover));
+            color: var(--color-text-primary);
+            border-color: transparent;
+            transform: translateY(-3px);
+        }
+        
+        .highlight {
+            color: var(--color-accent-green);
+            font-weight: 600;
         }
 
-        /* * ========================================
-         * 4. ANTET (HEADER) ȘI NAVIGAȚIE
-         * ========================================
-        */
+        /* ========================================
+         * 4. HEADER & NAVIGATION
+         * ======================================== */
         .header {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background-color: rgba(17, 17, 17, 0.85); /* #111 cu transparență */
+            background-color: var(--color-bg-blur);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            z-index: 100;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--bg-secondary);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+            transition: var(--transition);
         }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 70px;
         }
 
         .nav-logo {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--text-main);
+            color: var(--color-text-primary);
         }
 
-        .nav-menu ul {
+        .nav-menu {
             list-style: none;
             display: flex;
         }
 
-        .nav-menu li {
-            margin-left: 2.5rem;
-        }
-
-        .nav-menu a {
-            font-weight: 400;
-            color: var(--text-secondary);
-            padding-bottom: 5px;
+        .nav-link {
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
             border-bottom: 2px solid transparent;
         }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: var(--text-main);
-            border-bottom-color: var(--accent);
+        .nav-link:hover {
+            color: var(--color-text-primary);
+        }
+        .nav-link.active {
+            color: var(--color-accent-green);
+            border-bottom-color: var(--color-accent-green);
         }
 
-        /* * ========================================
-         * 5. SECȚIUNEA HERO (ACASĂ)
-         * ========================================
-        */
-        #acasa {
-            height: 100vh;
-            min-height: 600px;
+        .nav-toggle {
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            padding: 5px;
+        }
+        .nav-toggle-bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px 0;
+            background-color: var(--color-text-primary);
+            transition: var(--transition);
+        }
+        
+        /* Mobile Nav Toggle Animation (Hamburger to X) */
+        .nav-toggle.active .nav-toggle-bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .nav-toggle.active .nav-toggle-bar:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active .nav-toggle-bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* ========================================
+         * 5. HERO SECTION
+         * ======================================== */
+        .hero {
+            min-height: 90vh;
             display: flex;
             align-items: center;
             text-align: center;
-            padding-top: 80px; /* Offset pentru header */
         }
-
-        #acasa .container {
+        .hero-content {
             max-width: 800px;
+            margin: 0 auto;
+        }
+        .hero-content h1 {
+            margin-bottom: 1.5rem;
+        }
+        .hero-content .subheading {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            color: var(--color-text-secondary);
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+        .hero-content .intro-text {
+            font-size: 1rem;
+            margin: 0 auto 2.5rem auto;
+            max-width: 600px;
         }
 
-        #acasa h1 {
-            color: var(--text-main);
+        /* ========================================
+         * 6. ABOUT ME SECTION
+         * ======================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .about-content p {
+            max-width: none;
+        }
+        
+        .about-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .about-list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background-color: var(--color-bg-soft);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #222;
+        }
+        
+        .about-list-item svg {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            color: var(--color-accent-green);
+            margin-top: 5px;
+        }
+        
+        .about-list-item h4 {
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
         }
 
-        #acasa .subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
+        /* ========================================
+         * 7. PROJECTS SECTION
+         * ======================================== */
+        #projects {
+            background-color: var(--color-bg-soft);
         }
-
-        /* * ========================================
-         * 6. SECȚIUNEA PROIECTE
-         * ========================================
-        */
-        #proiecte {
-            background-color: var(--bg-main); /* Schimbă dacă vrei un fundal diferit */
-        }
-
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: 1fr;
             gap: 2rem;
         }
 
         .project-card {
-            background-color: var(--bg-secondary);
+            background-color: var(--color-bg);
             border-radius: var(--border-radius);
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-dark);
             transition: var(--transition);
+            border: 1px solid #222;
         }
-
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
-
+        
         .project-card img {
             width: 100%;
-            height: 250px; /* Înălțime fixă pentru imagini */
+            aspect-ratio: 16 / 10;
             object-fit: cover;
+            border-bottom: 1px solid #222;
         }
-
-        .project-card-content {
+        
+        .project-content {
             padding: 1.5rem;
         }
         
-        .project-card-content h3 {
-             color: var(--text-main);
-        }
-
-        .project-card-content p {
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-card-content .btn {
-            padding: 10px 20px;
-            font-size: 0.9rem;
-        }
-
-        /* * ========================================
-         * 7. SECȚIUNEA CONTACT (CTA FINAL)
-         * ========================================
-        */
-        #contact {
-            background-color: var(--bg-secondary);
-            text-align: center;
-            border-radius: var(--border-radius);
-            margin: 0 auto 6rem auto;
-            max-width: var(--container-width);
-            padding: 4rem 2rem;
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
         }
         
-        #contact .container {
-            max-width: 700px;
+        .project-tech span {
+            font-size: 0.75rem;
+            font-weight: 500;
+            background-color: var(--color-bg-soft);
+            color: var(--color-accent-green);
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+        }
+        
+        .project-content .btn-secondary {
+            margin-top: 1rem;
         }
 
-        #contact h2 {
+        /* ========================================
+         * 8. TESTIMONIALS SECTION
+         * ======================================== */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: var(--color-bg-soft);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            border: 1px solid #222;
+        }
+        
+        .testimonial-card blockquote {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            border-left: 3px solid var(--color-accent-green);
+            padding-left: 1.5rem;
             margin-bottom: 1rem;
         }
-
-        #contact p {
-            font-size: 1.1rem;
-            margin-bottom: 2.5rem;
-        }
         
-        #contact .btn {
-            font-size: 1.1rem;
-            padding: 15px 35px;
+        .testimonial-card .author {
+            font-weight: 600;
+            color: var(--color-text-primary);
         }
-
-        /* * ========================================
-         * 8. FOOTER
-         * ========================================
-        */
-        .footer {
-            text-align: center;
-            padding: 2rem 0;
-            border-top: 1px solid var(--bg-secondary);
-        }
-
-        .footer p {
-            margin: 0;
+        .testimonial-card .author span {
+            font-weight: 300;
+            color: var(--color-text-secondary);
             font-size: 0.9rem;
-            color: var(--text-secondary);
+        }
+
+        /* ========================================
+         * 9. CONTACT CTA SECTION
+         * ======================================== */
+        #contact {
+            background: linear-gradient(180deg, var(--color-bg-soft), var(--color-bg));
+            text-align: center;
+        }
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .contact-content h2 {
+            margin-bottom: 1rem;
+        }
+        .contact-content p {
+            font-size: 1.1rem;
+            margin: 0 auto 2.5rem auto;
+        }
+        .contact-content .btn-primary {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* ========================================
+         * 10. FOOTER
+         * ======================================== */
+        .footer {
+            border-top: 1px solid #222;
+            padding: 2rem 0;
+            text-align: center;
         }
         
-        /* * ========================================
-         * 9. RESPONSIVITATE (MOBILE)
-         * ========================================
-        */
+        .footer .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+        }
         
-        /* Tablete și telefoane mari */
-        @media (max-width: 992px) {
-            h1 { font-size: 2.8rem; }
-            h2 { font-size: 2rem; }
+        .footer-socials {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-socials a {
+            color: var(--color-text-secondary);
+            font-size: 1.5rem;
+        }
+        .footer-socials a:hover {
+            color: var(--color-accent-green);
+        }
+        
+        .footer p {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
 
+        /* ========================================
+         * 11. ANIMATIONS (FADE-IN ON SCROLL)
+         * ======================================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========================================
+         * 12. RESPONSIVE (MOBILE-FIRST)
+         * ======================================== */
+
+        /* Tablet */
+        @media (min-width: 768px) {
             .project-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .testimonial-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        /* Desktop */
+        @media (min-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .project-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
         
-        /* Telefoane mobile */
-        @media (max-width: 768px) {
-            /* Ascundem meniul desktop și pregătim pentru meniu mobil */
-            /* Pentru acest exemplu simplu, vom centra linkurile sub logo */
+        /* Mobile Navigation */
+        @media (max-width: 991px) {
+            .nav-toggle {
+                display: block;
+                z-index: 1001; /* Above menu */
+            }
             
-            .navbar {
+            .nav-menu {
+                display: flex;
                 flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-menu ul {
-                padding: 0;
                 justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                right: -100%; /* Start off-screen */
+                width: 100%;
+                height: 100vh;
+                background-color: var(--color-bg);
+                transition: right 0.4s ease-in-out;
+                gap: 2rem;
             }
             
-            .nav-menu li {
-                margin: 0 1rem;
+            .nav-menu.active {
+                right: 0;
             }
             
-            /* Ajustăm secțiunea Hero */
-            #acasa {
-                padding-top: 150px; /* Mai mult spațiu pentru nav-ul stivuit */
-                height: auto;
-                min-height: 70vh;
-                padding-bottom: 4rem;
-            }
-
-            h1 { font-size: 2.2rem; }
-            #acasa .subtitle { font-size: 1.1rem; }
-
-            /* Grid-ul de proiecte devine 1 coloană */
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-
-            /* Secțiunea Contact */
-            #contact {
-                margin: 0 1rem 4rem 1rem;
-                padding: 3rem 1.5rem;
+            .nav-link {
+                font-size: 1.5rem;
             }
         }
-
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <div class="container navbar">
-            <a href="#acasa" class="nav-logo">Andrei Popa</a>
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="#acasa" class="active">Acasă</a></li>
-                    <li><a href="#proiecte">Proiecte</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+    <!-- ======================= HEADER ======================= -->
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="#home" class="nav-logo">Mihalyi Daniel</a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </div>
+        </nav>
     </header>
 
     <main>
 
-        <section id="acasa">
-            <div class="container">
-                <h1>Dezvoltator Shopify & Expert E-commerce</h1>
-                <p class="subtitle">Transform idei creative în magazine online profitabile. Curat, Rapid și Optimizat pentru Conversie.</p>
-                <a href="#proiecte" class="btn">Vezi Proiectele Mele</a>
+        <!-- ======================= HERO ======================= -->
+        <section class="hero" id="home">
+            <div class="container hero-content fade-in">
+                <h1>Crafting High-Impact Websites for Brands Worldwide</h1>
+                <p class="subheading">Freelance Web Developer with a passion for clean code, fast performance, and user-focused design.</p>
+                <p class="intro-text">Hi, I’m Mihalyi Daniel — a 20-year-old developer from Romania with a strong foundation in web development, UI/UX design, and performance optimization. I specialize in building sleek, modern websites that don’t just look good — they convert.</p>
+                <a href="#projects" class="btn btn-primary">Explore My Work</a>
             </div>
         </section>
 
-        <section id="proiecte">
+        <!-- ======================= ABOUT ME ======================= -->
+        <section class="about" id="about">
             <div class="container">
-                <h2>Proiecte Recente</h2>
+                <h2 class="fade-in">Why Work With Me?</h2>
+                <div class="about-grid">
+                    <div class="about-content fade-in">
+                        <h3>A Modern Approach to Web Development</h3>
+                        <p>I combine the latest technologies with a keen eye for design to create websites that are not only visually stunning but also incredibly fast, accessible, and optimized for search engines. I believe in a collaborative process, working closely with clients to bring their vision to life.</p>
+                        <p>My focus is on writing <span class="highlight">clean, semantic, and maintainable code</span>, ensuring your website is a robust asset that can grow with your business.</p>
+                    </div>
+                    <ul class="about-list">
+                        <li class="about-list-item fade-in" style="transition-delay: 100ms;">
+                            <!-- Icon: Code -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                            <div>
+                                <h4>5+ Years of Experience</h4>
+                                <p>Over 5 years of hands-on coding experience, mastering the fundamentals and staying ahead of new trends.</p>
+                            </div>
+                        </li>
+                        <li class="about-list-item fade-in" style="transition-delay: 200ms;">
+                            <!-- Icon: Stack -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6-4.5L18 9l-6 4.5L6 9z"/><path d="M18 13.5l-6 4.5-6-4.5"/><path d="M18 17.5l-6 4.5-6-4.5"/></svg>
+                            <div>
+                                <h4>Versatile Tech Stack</h4>
+                                <p>Expertise in HTML, CSS, JavaScript, React, Tailwind CSS, and the Shopify/Liquid ecosystem.</p>
+                            </div>
+                        </li>
+                        <li class="about-list-item fade-in" style="transition-delay: 300ms;">
+                            <!-- Icon: Rocket/Speed -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            <div>
+                                <h4>Performance & Accessibility</h4>
+                                <p>A deep focus on optimizing for speed (Core Web Vitals) and ensuring your site is accessible (WCAG).</p>
+                            </div>
+                        </li>
+                        <li class="about-list-item fade-in" style="transition-delay: 400ms;">
+                            <!-- Icon: Eye/Design -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            <div>
+                                <h4>Strong Visual Sense</h4>
+                                <p>A natural ability to translate design mockups (Figma, etc.) into pixel-perfect, responsive websites.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
+        <!-- ======================= PROJECTS ======================= -->
+        <section class="projects" id="projects">
+            <div class="container">
+                <h2 class="fade-in">Selected Work</h2>
                 <div class="project-grid">
                     
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/400x300/1f1f1f/00FF99?text=Aura+Watches" alt="Proiect Magazin One-Product">
-                        <div class="project-card-content">
-                            <h3>Magazin One-Product (Concept Lux)</h3>
-                            <p>Design minimalist pentru brandul de ceasuri 'Aura'.</p>
-                            <a href="#" class="btn">Vezi Demo Live</a>
+                    <!-- Project 1 -->
+                    <div class="project-card fade-in" style="transition-delay: 100ms;">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00FF99?text=Project+Alpha" alt="Project Alpha">
+                        <div class="project-content">
+                            <h3>E-commerce Brand Refresh</h3>
+                            <p>A complete redesign and custom theme development for a growing Shopify brand, focusing on mobile conversion.</p>
+                            <div class="project-tech">
+                                <span>Shopify</span>
+                                <span>Liquid</span>
+                                <span>Tailwind CSS</span>
+                                <span>JS</span>
+                            </div>
+                            <a href="#" class="btn btn-secondary">View Case Study</a>
                         </div>
                     </div>
-
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/400x300/1f1f1f/00FF99?text=Urban+Roots" alt="Proiect Magazin Multi-Produs">
-                        <div class="project-card-content">
-                            <h3>Magazin Multi-Produs (Streetwear)</h3>
-                            <p>Magazin Shopify pentru brandul 'Urban Roots', axat pe colecții.</p>
-                            <a href="#" class="btn">Vezi Demo Live</a>
+                    
+                    <!-- Project 2 -->
+                    <div class="project-card fade-in" style="transition-delay: 200ms;">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00FF99?text=Project+Beta" alt="Project Beta">
+                        <div class="project-content">
+                            <h3>SaaS Landing Page</h3>
+                            <p>High-performance landing page built with React (Next.js) to drive sign-ups for a new tech startup.</p>
+                            <div class="project-tech">
+                                <span>React</span>
+                                <span>Next.js</span>
+                                <span>Tailwind CSS</span>
+                            </div>
+                            <a href="#" class="btn btn-secondary">View Case Study</a>
                         </div>
                     </div>
-
-                    <div class="project-card">
-                        <img src="https://via.placeholder.com/400x300/1f1f1f/00FF99?text=Glow+Studio" alt="Proiect Site Servicii">
-                        <div class="project-card-content">
-                            <h3>Site Servicii (Beauty Salon)</h3>
-                            <p>Implementare sistem de programări pentru 'Glow Studio'.</p>
-                            <a href="#" class="btn">Vezi Demo Live</a>
+                    
+                    <!-- Project 3 -->
+                    <div class="project-card fade-in" style="transition-delay: 300ms;">
+                        <img src="https://via.placeholder.com/400x250/1a1a1a/00FF99?text=Project+Gamma" alt="Project Gamma">
+                        <div class="project-content">
+                            <h3>Headless Shopify Store</h3>
+                            <p>Blazing-fast headless e-commerce experience using the Shopify Storefront API and a custom React frontend.</p>
+                            <div class="project-tech">
+                                <span>Shopify API</span>
+                                <span>React</span>
+                                <span>GraphQL</span>
+                            </div>
+                            <a href="#" class="btn btn-secondary">View Case Study</a>
                         </div>
                     </div>
 
@@ -424,21 +662,119 @@
             </div>
         </section>
 
-        <section id="contact">
+        <!-- ======================= TESTIMONIALS ======================= -->
+        <section class="testimonials" id="testimonials">
             <div class="container">
-                <h2>Ai un proiect în minte?</h2>
-                <p>Sunt disponibil pentru proiecte noi. Hai să discutăm despre viziunea ta.</p>
-                <a href="#" class="btn">Contactează-mă pe Upwork</a>
+                <h2 class="fade-in">What Clients Say</h2>
+                <div class="testimonial-grid">
+                    
+                    <div class="testimonial-card fade-in" style="transition-delay: 100ms;">
+                        <blockquote>"Daniel's attention to detail is incredible. He translated our complex Figma designs into a pixel-perfect, responsive Shopify theme faster than we thought possible. Our site speed also improved by 40%."</blockquote>
+                        <p class="author">Jane Doe, <span>Founder of Aura Beauty</span></p>
+                    </div>
+                    
+                    <div class="testimonial-card fade-in" style="transition-delay: 200ms;">
+                        <blockquote>"Working with Daniel was a breeze. He's a clear communicator, deeply understands modern web standards, and delivered a React-based site that has significantly improved our user engagement. His maturity and professionalism are top-notch."</blockquote>
+                        <p class="author">John Smith, <span>CEO of TechFlow</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= CONTACT CTA ======================= -->
+        <section class="contact-cta" id="contact">
+            <div class="container contact-content fade-in">
+                <h2>Let’s Build Something Great</h2>
+                <p>I'm open for freelance opportunities. Whether you have a question or a project in mind, feel free to reach out. I'm excited to hear about your vision and how I can help bring it to life.</p>
+                <!-- Change the href to your actual Upwork/contact link -->
+                <a href="#" class="btn btn-primary">Hire Me on Upwork</a>
             </div>
         </section>
 
     </main>
 
+    <!-- ======================= FOOTER ======================= -->
     <footer class="footer">
         <div class="container">
-            <p>© 2025 Andrei Popa. Toate drepturile rezervate.</p>
+            <p>© 2025 Mihalyi Daniel. All rights reserved.</p>
+            <div class="footer-socials">
+                <!-- Replace # with your links -->
+                <a href="#" aria-label="GitHub">
+                    <!-- GitHub Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="#" aria-label="LinkedIn">
+                    <!-- LinkedIn Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+            </div>
         </div>
     </footer>
 
+    <!-- ======================= JAVASCRIPT ======================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Mobile Navigation Toggle ---
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    navToggle.classList.toggle('active');
+                });
+                
+                // Close menu when a link is clicked
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        navToggle.classList.remove('active');
+                    });
+                });
+            }
+
+            // --- 2. Active Nav Link on Scroll ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navHeight = document.getElementById('header').offsetHeight;
+
+            function onScroll() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - navHeight * 1.5) { // Adjusted offset
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', onScroll);
+
+            // --- 3. Fade-in Animations on Scroll ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% is visible
+            });
+
+            // Observe all elements with the 'fade-in' class
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+        });
+    </script>
 </body>
 </html>
